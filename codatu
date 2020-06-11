@@ -1,0 +1,53 @@
+const Discord = require("discord.js");
+const Client = new Discord.Client();
+const prefix = "codatu!";
+
+Client.on('ready', ()=>{
+    console.log("Botul este online.");
+})
+
+Client.on('message', (message)=>{
+    if(!message.content.startsWith(prefix)) return;
+
+    if(message.content.startsWith(prefix + "support")){
+        message.channel.send("Salut, aici se afla creatorul meu! https://discord.gg/zQe4yKW");
+
+    }
+
+    if(message.content.startsWith(prefix + "help")){
+        message.channel.send("Verifica DMS!");
+        message.author.send("Salut, deocamdata comanda Help este inca in lucru.");
+    }
+
+    if(message.content.startsWith(prefix + "ban")){
+        let memberToBan = message.mentions.members.first();
+        let banreason = message.content.split(" ").slice(1);
+
+
+        if(!banreason){
+            message.reply("Nu ai specificat un motiv pentru ban.");
+            return;
+        }
+        if(!memberToBan){
+            message.reply("Nu ai mentionat pe nimeni.");
+            return;
+        }
+        if(!message.guilds.members.find('id', memberToBan.id)){
+            memberToBan.ban(banreason);
+            message.reply("Am banat userul.");
+            return;
+        }else{
+            message.reply("Eroare.");
+            return;
+        }
+
+
+
+    }
+
+
+    
+
+})
+
+Client.login("NzE4ODMwNDc0MTkzMTQxODIx.XuIRpw.QPlZOztoK928XfSUWQ47Oh3s9kg");
